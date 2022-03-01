@@ -27,6 +27,8 @@
 
 #include <QtCore>
 #include <QtDebug>
+#include <QRegularExpression>
+#include <QString>
 
 #include "structuredtextparser.h"
 #include "record.h"
@@ -52,15 +54,16 @@ FeaturesDataStore* FeaturesParser::parse(void)
   m_ds = ds;
 
   // layer feature related
-  QRegExp rx(".*/([^/]+)/steps/([^/]+)/layers/([^/]+)/features");
-  if (rx.exactMatch(m_fileName)) {
-    QStringList caps = rx.capturedTexts();
+  QRegularExpression rx(".*/([^/]+)/steps/([^/]+)/layers/([^/]+)/features");
+  QRegularExpressionMatch match = rx.match(m_fileName);
+  if (match.hasMatch()) {
+    QStringList caps = match.capturedTexts();
     ds->setJobName(caps[1]);
     ds->setStepName(caps[2]);
     ds->setLayerName(caps[3]);
 
     // steps attribute
-    QRegExp rp("(steps/[^/]+)/.*");
+    QRegularExpression rp("(steps/[^/]+)/.*");
     QString stepAttrName = QString(m_fileName).replace(rp, "\\1/attrlist");
     StructuredTextParser sp(stepAttrName);
     StructuredTextDataStore* sds = sp.parse();
