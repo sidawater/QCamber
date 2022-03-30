@@ -206,11 +206,12 @@ void JobMatrix::selectDrillLine(int index)
   {
     for(int row = 0;row < m_layerNames.size();row++)
     {
-      if (((item = ui->tableWidget->item(row,col)) != 0))
+      if (((item = ui->tableWidget->item(row,col)) != 0)) {
         if(col != target_col)
           item->setBackgroundColor(QColor("black"));
         else
           item->setBackgroundColor(QColor("red"));
+      }
     }
   }
 }

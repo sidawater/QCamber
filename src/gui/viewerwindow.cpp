@@ -78,7 +78,7 @@ ViewerWindow::ViewerWindow(QWidget *parent) :
       SLOT(setBackgroundColor(QColor)));
 
   ui->viewWidget->setFocus(Qt::MouseFocusReason);
-  ui->actionAreaZoom->setChecked(true);
+  ui->actionMousePan->setChecked(true);
 }
 
 ViewerWindow::~ViewerWindow()
